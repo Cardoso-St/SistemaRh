@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   HiOutlineEnvelope,
   HiOutlineEye,
@@ -13,6 +14,7 @@ const Login = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erros, setErros] = useState({});
   const [mensagem, setMensagem] = useState("");
+  const navigate = useNavigate();
 
   const validarFormulario = () => {
     const novosErros = {};
@@ -40,8 +42,8 @@ const Login = () => {
       return;
     }
 
-    // Será trocado pela chamada de login ao backend.
-    setMensagem("Campos validados. Depois conectaremos esta tela ao backend.");
+    // Temporário: depois só navega quando o backend confirmar o login.
+    navigate("/app/dashboard");
   };
 
   return (

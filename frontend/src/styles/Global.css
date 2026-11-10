@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+:root {
+  /* Fontes principais */
+  --fonte-titulo: 'Plus Jakarta Sans', sans-serif;
+  --fonte-corpo: 'Inter', Arial, sans-serif;
+
+  /* Paleta de Cores */
+  --cor-azul-escuro: #06265c;
+  --cor-azul-principal: #087ec2;
+  --cor-ciano: #19c6e7;
+  --cor-texto: #0f172a;
+  --cor-texto-suave: #64748b;
+  --cor-borda: #dce4ef;
+  --cor-fundo-app: #f4f8fb;
+  --cor-branco: #ffffff;
+  --cor-erro: #d92d20;
+  --cor-sucesso: #147a55;
+
+  font-family: var(--fonte-corpo);
+  color: var(--cor-texto);
+  background: var(--cor-fundo-app);
+}
+
+/* Corrigido o hífen para asterisco */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--cor-fundo-app);
+  color: var(--cor-texto);
+  font-family: var(--fonte-corpo);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Padronização de títulos globais */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fonte-titulo);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

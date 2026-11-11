@@ -51,9 +51,9 @@ const itensDoMenu = [
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar">
-      <header className="sidebar-brand">
-        <div className="sidebar-logo-box">
+    <aside className="menu-lateral">
+      <header className="menu-lateral-topo">
+        <div className="menu-lateral-logo">
           <img
             src="/images/logo-instituto-superar.png"
             alt="Instituto Superar"
@@ -61,15 +61,15 @@ const Sidebar = () => {
         </div>
       </header>
 
-      <nav className="side-navigator" aria-label="Menu principal">
-        <p className="sidebar-menu-label">GESTÃO</p>
+      <nav className="menu-lateral-navegacao" aria-label="Menu principal">
+        <p className="menu-lateral-titulo-secao">GESTÃO</p>
 
         {itensDoMenu.map(({ caminho, texto, icone: Icone }) => (
           <NavLink
             key={caminho}
             to={caminho}
             className={({ isActive }) =>
-              isActive ? "sidebar-link active" : "sidebar-link"
+              isActive ? "menu-lateral-link ativo" : "menu-lateral-link"
             }
           >
             <Icone aria-hidden="true" />
@@ -80,7 +80,7 @@ const Sidebar = () => {
         <NavLink
           to="/app/configuracoes"
           className={({ isActive }) =>
-            isActive ? "sidebar-link active" : "sidebar-link"
+            isActive ? "menu-lateral-link ativo" : "menu-lateral-link"
           }
         >
           <HiOutlineCog6Tooth aria-hidden="true" />
@@ -88,11 +88,11 @@ const Sidebar = () => {
         </NavLink>
       </nav>
 
-      <footer className="sidebar-user">
-        {/* Depois estes dados virão do usuário autenticado via JWT. */}
-        <div className="sidebar-user-avatar">AR</div>
+      <footer className="menu-lateral-usuario">
+        {/* Depois estes dados virão do usuário autenticado via JWT */}
+        <div className="menu-lateral-avatar">AR</div>
 
-        <div className="sidebar-user-info">
+        <div className="menu-lateral-usuario-dados">
           <strong>Administrador RH</strong>
           <span>Administrador</span>
         </div>

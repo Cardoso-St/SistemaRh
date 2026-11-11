@@ -4,10 +4,10 @@ import "../styles/components/Layout.css";
 
 const Layout = () => {
   return (
-    <div className="app-layout">
+    <div className="estrutura-sistema">
       <Sidebar />
 
-      <main className="app-content">
+      <main className="conteudo-principal">
         <Outlet />
       </main>
     </div>

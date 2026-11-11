@@ -1,4 +1,4 @@
-.sidebar {
+.menu-lateral {
   position: sticky;
   top: 0;
   display: flex;
@@ -12,7 +12,7 @@
 }
 
 /* --- Topo / Marca --- */
-.sidebar-brand {
+.menu-lateral-topo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,12 +21,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.sidebar-logo-box {
+.menu-lateral-logo {
   width: 140px;
   height: auto;
 }
 
-.sidebar-logo-box img {
+.menu-lateral-logo img {
   display: block;
   width: 100%;
   height: auto;
@@ -35,7 +35,7 @@
 }
 
 /* --- Navegação --- */
-.side-navigator {
+.menu-lateral-navegacao {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -44,11 +44,11 @@
   scrollbar-width: none;
 }
 
-.side-navigator::-webkit-scrollbar {
+.menu-lateral-navegacao::-webkit-scrollbar {
   display: none;
 }
 
-.sidebar-menu-label {
+.menu-lateral-titulo-secao {
   margin: 0 12px 8px;
   color: #19c6e7;
   font-size: 11px;
@@ -56,7 +56,7 @@
   letter-spacing: 1px;
 }
 
-.sidebar-link {
+.menu-lateral-link {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -69,7 +69,7 @@
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
-.sidebar-link svg {
+.menu-lateral-link svg {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
@@ -77,29 +77,29 @@
   transition: color 0.2s;
 }
 
-.sidebar-link:hover {
+.menu-lateral-link:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.12);
 }
 
-.sidebar-link:hover svg {
+.menu-lateral-link:hover svg {
   color: #ffffff;
 }
 
 /* Item ativo com destaque limpo e sombra */
-.sidebar-link.active {
+.menu-lateral-link.ativo {
   color: #06265c;
   background: #ffffff;
   box-shadow: 0 8px 18px rgba(6, 38, 92, 0.28);
   font-weight: 800;
 }
 
-.sidebar-link.active svg {
+.menu-lateral-link.ativo svg {
   color: #087ec2;
 }
 
 /* --- Rodapé do Usuário --- */
-.sidebar-user {
+.menu-lateral-usuario {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -108,7 +108,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.sidebar-user-avatar {
+.menu-lateral-avatar {
   display: grid;
   place-items: center;
   flex: 0 0 38px;
@@ -121,46 +121,46 @@
   font-weight: 800;
 }
 
-.sidebar-user-info {
+.menu-lateral-usuario-dados {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 2px;
 }
 
-.sidebar-user-info strong,
-.sidebar-user-info span {
+.menu-lateral-usuario-dados strong,
+.menu-lateral-usuario-dados span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.sidebar-user-info strong {
+.menu-lateral-usuario-dados strong {
   color: #ffffff;
   font-size: 13px;
 }
 
-.sidebar-user-info span {
+.menu-lateral-usuario-dados span {
   color: #badbe8;
   font-size: 12px;
 }
 
 /* --- Responsivo (Tablet) --- */
 @media (max-width: 960px) {
-  .sidebar {
+  .menu-lateral {
     flex: 0 0 220px;
     width: 220px;
     padding: 22px 12px 16px;
   }
 
-  .sidebar-logo-box {
+  .menu-lateral-logo {
     width: 120px;
   }
 }
 
 /* --- Responsivo (Celular) --- */
 @media (max-width: 760px) {
-  .sidebar {
+  .menu-lateral {
     position: sticky;
     top: 0;
     z-index: 20;
@@ -170,17 +170,17 @@
     padding: 10px 16px 12px;
   }
 
-  .sidebar-brand {
+  .menu-lateral-topo {
     padding: 0 0 10px;
     margin-bottom: 0;
     border-bottom: 0;
   }
 
-  .sidebar-logo-box {
+  .menu-lateral-logo {
     width: 82px;
   }
 
-  .side-navigator {
+  .menu-lateral-navegacao {
     flex-direction: row;
     gap: 8px;
     overflow-x: auto;
@@ -188,16 +188,16 @@
     scrollbar-width: none;
   }
 
-  .side-navigator::-webkit-scrollbar {
+  .menu-lateral-navegacao::-webkit-scrollbar {
     display: none;
   }
 
-  .sidebar-menu-label,
-  .sidebar-user {
+  .menu-lateral-titulo-secao,
+  .menu-lateral-usuario {
     display: none;
   }
 
-  .sidebar-link {
+  .menu-lateral-link {
     flex: 0 0 auto;
     gap: 8px;
     padding: 8px 14px;
@@ -206,7 +206,7 @@
     white-space: nowrap;
   }
 
-  .sidebar-link svg {
+  .menu-lateral-link svg {
     width: 17px;
     height: 17px;
   }

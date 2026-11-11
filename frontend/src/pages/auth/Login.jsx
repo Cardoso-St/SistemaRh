@@ -47,19 +47,19 @@ const Login = () => {
   };
 
   return (
-    <main className="login-page">
-      <section className="login-card">
-        <aside className="login-presentation">
-          <div className="brand-logo-box">
+    <main className="login-pagina">
+      <section className="login-cartao">
+        <aside className="login-apresentacao">
+          <div>
             <img
-              className="institute-logo"
+              className="login-logo-instituto"
               src="/images/logo-instituto-superar.png"
               alt="Instituto Superar"
             />
           </div>
 
-          <div className="presentation-content">
-            <p className="login-eyebrow">PORTAL INTERNO</p>
+          <div className="login-apresentacao-conteudo">
+            <p className="login-etiqueta">PORTAL INTERNO</p>
 
             <h1>
               Gestão de RH
@@ -72,32 +72,32 @@ const Login = () => {
             </p>
           </div>
 
-          <p className="presentation-footer">
+          <p className="login-apresentacao-rodape">
             Instituto Superar · Recursos Humanos
           </p>
         </aside>
 
-        <section className="login-form-area">
-          {/* Este container mantém título e inputs na mesma coluna. */}
-          <div className="login-form-container">
-            <div className="login-mobile-logo">
+        <section className="login-area-formulario">
+          {/* Este bloco mantém título e campos alinhados na mesma coluna */}
+          <div className="login-caixa-formulario">
+            <div className="login-logo-celular">
               <img
                 src="/images/logo-instituto-superar.png"
                 alt="Instituto Superar"
               />
             </div>
 
-            <header className="login-heading">
-              <p className="login-eyebrow">ACESSO RESTRITO</p>
+            <header className="login-cabecalho">
+              <p className="login-etiqueta">ACESSO RESTRITO</p>
               <h2>Boas-vindas</h2>
               <p>Entre com suas credenciais para acessar o sistema.</p>
             </header>
 
-            <form className="login-form" onSubmit={handleSubmit} noValidate>
-              <div className="form-field">
+            <form className="login-formulario" onSubmit={handleSubmit} noValidate>
+              <div className="campo-grupo">
                 <label htmlFor="email">E-mail corporativo</label>
 
-                <div className="input-with-icon">
+                <div className="campo-com-icone">
                   <HiOutlineEnvelope aria-hidden="true" />
 
                   <input
@@ -112,22 +112,22 @@ const Login = () => {
                 </div>
 
                 {erros.email && (
-                  <span id="erro-email" className="field-error">
+                  <span id="erro-email" className="campo-erro">
                     {erros.email}
                   </span>
                 )}
               </div>
 
-              <div className="form-field">
-                <div className="field-label-row">
+              <div className="campo-grupo">
+                <div className="campo-linha-rotulo">
                   <label htmlFor="senha">Senha</label>
 
-                  <button type="button" className="forgot-password">
+                  <button type="button" className="login-esqueci-senha">
                     Esqueci minha senha
                   </button>
                 </div>
 
-                <div className="input-with-icon">
+                <div className="campo-com-icone">
                   <HiOutlineLockClosed aria-hidden="true" />
 
                   <input
@@ -142,7 +142,7 @@ const Login = () => {
 
                   <button
                     type="button"
-                    className="toggle-password"
+                    className="campo-botao-mostrar-senha"
                     onClick={() => setMostrarSenha(!mostrarSenha)}
                     aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
                   >
@@ -151,18 +151,18 @@ const Login = () => {
                 </div>
 
                 {erros.senha && (
-                  <span id="erro-senha" className="field-error">
+                  <span id="erro-senha" className="campo-erro">
                     {erros.senha}
                   </span>
                 )}
               </div>
 
-              <button type="submit" className="login-submit">
+              <button type="submit" className="login-botao-entrar">
                 Entrar no sistema
               </button>
 
               {mensagem && (
-                <p className="login-feedback" role="status">
+                <p className="login-mensagem-retorno" role="status">
                   {mensagem}
                 </p>
               )}

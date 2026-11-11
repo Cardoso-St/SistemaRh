@@ -1,21 +1,21 @@
-.app-layout {
+.estrutura-sistema {
   display: flex;
   min-height: 100svh;
   background: #f4f8fb;
 }
 
-.app-content {
+.conteudo-principal {
   flex: 1;
   min-width: 0;
   padding: 32px;
 }
 
 @media (max-width: 760px) {
-  .app-layout {
+  .estrutura-sistema {
     display: block;
   }
 
-  .app-content {
+  .conteudo-principal {
     padding: 24px 16px;
   }
 }

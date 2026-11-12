@@ -1,52 +1,8 @@
-/* --- Cabeçalho --- */
 .pagina-dashboard {
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
     animation: fadeIn 0.4s ease-out both;
-}
-
-/* --- Cabeçalho Accent Proporcional --- */
-/* --- Cabeçalho Accent Proporcional --- */
-.cabecalho-dashboard-accent {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 28px;
-}
-
-.cabecalho-dashboard-accent::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 3px;
-    bottom: 3px;
-    width: 4px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, var(--cor-ciano) 0%, var(--cor-azul-principal) 100%);
-}
-
-.rotulo-dashboard {
-    margin: 0 0 4px;
-    color: var(--cor-azul-principal);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-}
-
-.cabecalho-dashboard-accent h1 {
-    margin: 0 0 6px;
-    color: var(--cor-texto);
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.6px;
-    line-height: 1.15;
-}
-
-.descricao-dashboard {
-    margin: 0;
-    color: var(--cor-texto-suave);
-    font-size: 14px;
-    line-height: 1.4;
 }
 
 /* --- Cards Clicáveis --- */
@@ -308,42 +264,7 @@
     font-weight: 500;
 }
 
-/* Status com Ponto Animado */
-.status-colaborador {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.status-ativo {
-    color: #0f766e;
-    background: #ccfbf1;
-}
-
-.status-ativo .ponto-status {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #0d9488;
-}
-
-.status-inativo {
-    color: #b91c1c;
-    background: #fef2f2;
-}
-
-.status-inativo .ponto-status {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ef4444;
-}
-
-.botao-ver-perfil {
+.botao-ver-perfil-dashboard {
     padding: 7px 14px;
     border: 0;
     border-radius: 8px;
@@ -355,54 +276,9 @@
     transition: all 0.2s ease;
 }
 
-.botao-ver-perfil:hover {
+.botao-ver-perfil-dashboard:hover {
     color: #ffffff;
     background: var(--cor-azul-principal);
-}
-
-/* --- Paginação --- */
-.rodape-paginacao {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    background: var(--cor-branco);
-    border-top: 1px solid #f1f5f9;
-    color: var(--cor-texto-suave);
-    font-size: 13px;
-}
-
-.controles-paginacao {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.botao-paginacao,
-.numero-paginacao {
-    display: grid;
-    place-items: center;
-    min-width: 32px;
-    height: 32px;
-    padding: 0;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    background: var(--cor-branco);
-    color: var(--cor-texto);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.botao-paginacao:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.numero-paginacao.ativo {
-    color: var(--cor-branco);
-    background: var(--cor-azul-principal);
-    border-color: var(--cor-azul-principal);
 }
 
 .mensagem-sem-colaboradores {

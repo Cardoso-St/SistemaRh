@@ -1,0 +1,49 @@
+/* =========================================================
+   2. SELO DE STATUS (Ativo / Afastado / Inativo)
+   ========================================================= */
+.selo-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.selo-status-bolinha {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+/* Ativo (Verde) */
+.selo-status-ativo {
+    color: #15803d;
+    background: #dcfce7;
+}
+
+.selo-status-ativo .selo-status-bolinha {
+    background: #16a34a;
+}
+
+/* Afastado (Amarelo) */
+.selo-status-afastado {
+    color: #b45309;
+    background: #fef3c7;
+}
+
+.selo-status-afastado .selo-status-bolinha {
+    background: #d97706;
+}
+
+/* Inativo (Vermelho) */
+.selo-status-inativo {
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+.selo-status-inativo .selo-status-bolinha {
+    background: #dc2626;
+}

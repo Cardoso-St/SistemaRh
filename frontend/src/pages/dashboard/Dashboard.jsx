@@ -1,15 +1,14 @@
 import { useState } from "react";
 import {
-    HiChevronLeft,
-    HiChevronRight,
     HiOutlineDocumentMinus,
     HiOutlineExclamationTriangle,
     HiOutlineMagnifyingGlass,
     HiOutlineUserGroup,
 } from "react-icons/hi2";
+import CabecalhoPagina from "../../components/ui/CabecalhoPagina.jsx";
+import Paginacao from "../../components/ui/Paginacao.jsx";
+import SeloStatus from "../../components/ui/SeloStatus.jsx";
 import "../../styles/pages/Dashboard.css";
-
-// IMPORTAÇÃO DO HELPER GLOBAL
 import { normalizarTexto } from "../../utils/Normalizar.js";
 
 const indicadoresRh = [
@@ -47,10 +46,11 @@ const colaboradoresExemplo = [
         cargo: "Modelo",
         vinculo: "CLT",
         municipio: "Maceió",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: false,
         pendenciaDocumental: false,
-        fotoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 2,
@@ -59,10 +59,11 @@ const colaboradoresExemplo = [
         cargo: "Matemático",
         vinculo: "Colaborador associado",
         municipio: "Sítio",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: true,
         pendenciaDocumental: false,
-        fotoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 3,
@@ -71,7 +72,7 @@ const colaboradoresExemplo = [
         cargo: "Torcedor do Corinthians",
         vinculo: "Prestador de serviços",
         municipio: "NUpal",
-        ativo: false,
+        status: "Inativo",
         contratoVencer: false,
         pendenciaDocumental: true,
         fotoUrl: null,
@@ -83,10 +84,11 @@ const colaboradoresExemplo = [
         cargo: "Pedagógica",
         vinculo: "CLT",
         municipio: "Mato",
-        ativo: false,
+        status: "Afastado",
         contratoVencer: true,
         pendenciaDocumental: true,
-        fotoUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 5,
@@ -95,7 +97,7 @@ const colaboradoresExemplo = [
         cargo: "Atleta",
         vinculo: "PJ",
         municipio: "Palmeira dos Índios",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: false,
         pendenciaDocumental: true,
         fotoUrl: null,
@@ -107,10 +109,11 @@ const colaboradoresExemplo = [
         cargo: "Analista de RH",
         vinculo: "CLT",
         municipio: "Maceió",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: true,
         pendenciaDocumental: false,
-        fotoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 7,
@@ -119,10 +122,11 @@ const colaboradoresExemplo = [
         cargo: "Desenvolvedor",
         vinculo: "CLT",
         municipio: "Arapiraca",
-        ativo: false,
+        status: "Inativo",
         contratoVencer: false,
         pendenciaDocumental: true,
-        fotoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 8,
@@ -131,10 +135,11 @@ const colaboradoresExemplo = [
         cargo: "Coordenadora de Projetos",
         vinculo: "CLT",
         municipio: "Maceió",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: false,
         pendenciaDocumental: false,
-        fotoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150",
     },
     {
         id: 9,
@@ -143,7 +148,7 @@ const colaboradoresExemplo = [
         cargo: "Designer UI/UX",
         vinculo: "PJ",
         municipio: "Rio Largo",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: false,
         pendenciaDocumental: false,
         fotoUrl: null,
@@ -155,10 +160,11 @@ const colaboradoresExemplo = [
         cargo: "Assistente Administrativo",
         vinculo: "Estágio",
         municipio: "Maceió",
-        ativo: true,
+        status: "Ativo",
         contratoVencer: false,
         pendenciaDocumental: false,
-        fotoUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
+        fotoUrl:
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
     },
 ];
 
@@ -168,26 +174,24 @@ const Dashboard = () => {
     const [paginaAtual, setPaginaAtual] = useState(1);
     const itensPorPagina = 5;
 
-    // Busca insensível a acentos e maiúsculas/minúsculas usando o helper global
     const colaboradoresFiltrados = colaboradoresExemplo.filter((colaborador) => {
         const termoNormalizado = normalizarTexto(termoBusca.trim());
 
         const passaBusca =
             !termoNormalizado ||
             normalizarTexto(colaborador.nome).includes(termoNormalizado) ||
-            normalizarTexto(colaborador.matricula).includes(termoNormalizado) ||
-            normalizarTexto(colaborador.cargo).includes(termoNormalizado) ||
-            normalizarTexto(colaborador.vinculo).includes(termoNormalizado) ||
-            normalizarTexto(colaborador.municipio).includes(termoNormalizado);
+            normalizarTexto(colaborador.matricula).includes(termoNormalizado);
 
         if (!passaBusca) return false;
 
         if (filtroCategoria === "contratos-vencer") return colaborador.contratoVencer;
-        if (filtroCategoria === "pendencias-documentais") return colaborador.pendenciaDocumental;
+        if (filtroCategoria === "pendencias-documentais")
+            return colaborador.pendenciaDocumental;
         return true;
     });
 
-    const totalPaginas = Math.ceil(colaboradoresFiltrados.length / itensPorPagina) || 1;
+    const totalPaginas =
+        Math.ceil(colaboradoresFiltrados.length / itensPorPagina) || 1;
     const indiceInicial = (paginaAtual - 1) * itensPorPagina;
     const colaboradoresPaginados = colaboradoresFiltrados.slice(
         indiceInicial,
@@ -201,14 +205,11 @@ const Dashboard = () => {
 
     return (
         <section className="pagina-dashboard">
-            {/* Cabeçalho Clean Integrado */}
-            <header className="cabecalho-dashboard-accent">
-                <p className="rotulo-dashboard">PAINEL ADMINISTRATIVO</p>
-                <h1>Visão geral</h1>
-                <p className="descricao-dashboard">
-                    Acompanhe os principais indicadores e localize colaboradores rapidamente.
-                </p>
-            </header>
+            <CabecalhoPagina
+                rotulo="PAINEL ADMINISTRATIVO"
+                titulo="Visão geral"
+                descricao="Acompanhe os principais indicadores e localize colaboradores rapidamente."
+            />
 
             {/* Cards Indicadores Clicáveis */}
             <section className="lista-cartoes-indicadores">
@@ -255,7 +256,7 @@ const Dashboard = () => {
                         <HiOutlineMagnifyingGlass aria-hidden="true" />
                         <input
                             type="search"
-                            placeholder="Buscar por nome, matrícula, cargo, vínculo ou município..."
+                            placeholder="Buscar colaborador por nome ou matrícula..."
                             value={termoBusca}
                             onChange={(event) => {
                                 setTermoBusca(event.target.value);
@@ -315,17 +316,11 @@ const Dashboard = () => {
                                     <td>{colaborador.municipio}</td>
 
                                     <td>
-                                        <span
-                                            className={`status-colaborador ${colaborador.ativo ? "status-ativo" : "status-inativo"
-                                                }`}
-                                        >
-                                            <span className="ponto-status" />
-                                            {colaborador.ativo ? "Ativo" : "Inativo"}
-                                        </span>
+                                        <SeloStatus status={colaborador.status} />
                                     </td>
 
                                     <td>
-                                        <button className="botao-ver-perfil" type="button">
+                                        <button className="botao-ver-perfil-dashboard" type="button">
                                             Ver perfil
                                         </button>
                                     </td>
@@ -341,45 +336,11 @@ const Dashboard = () => {
                     )}
                 </div>
 
-                {/* Paginação */}
-                <footer className="rodape-paginacao">
-                    <span>
-                        Página <strong>{paginaAtual}</strong> de <strong>{totalPaginas}</strong>
-                    </span>
-
-                    <div className="controles-paginacao">
-                        <button
-                            className="botao-paginacao"
-                            disabled={paginaAtual === 1}
-                            onClick={() => setPaginaAtual((prev) => prev - 1)}
-                            aria-label="Página anterior"
-                        >
-                            <HiChevronLeft />
-                        </button>
-
-                        {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
-                            (numeroPagina) => (
-                                <button
-                                    key={numeroPagina}
-                                    className={`numero-paginacao ${paginaAtual === numeroPagina ? "ativo" : ""
-                                        }`}
-                                    onClick={() => setPaginaAtual(numeroPagina)}
-                                >
-                                    {numeroPagina}
-                                </button>
-                            )
-                        )}
-
-                        <button
-                            className="botao-paginacao"
-                            disabled={paginaAtual === totalPaginas}
-                            onClick={() => setPaginaAtual((prev) => prev + 1)}
-                            aria-label="Próxima página"
-                        >
-                            <HiChevronRight />
-                        </button>
-                    </div>
-                </footer>
+                <Paginacao
+                    paginaAtual={paginaAtual}
+                    totalPaginas={totalPaginas}
+                    aoMudarPagina={setPaginaAtual}
+                />
             </section>
         </section>
     );

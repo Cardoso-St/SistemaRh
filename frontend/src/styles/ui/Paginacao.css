@@ -1,0 +1,60 @@
+/* =========================================================
+   3. PAGINAÇÃO PADRÃO DAS TABELAS
+   ========================================================= */
+.rodape-paginacao-ui {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid #f1f5f9;
+    color: #64748b;
+    background: #ffffff;
+    font-size: 13px;
+}
+
+.rodape-paginacao-ui strong {
+    color: #0f172a;
+}
+
+.controles-paginacao-ui {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.botao-paginacao-ui,
+.numero-paginacao-ui {
+    display: grid;
+    place-items: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #0f172a;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.botao-paginacao-ui:hover:not(:disabled),
+.numero-paginacao-ui:hover:not(.ativo) {
+    border-color: #087ec2;
+    color: #087ec2;
+    background: #f0f9ff;
+}
+
+.botao-paginacao-ui:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.numero-paginacao-ui.ativo {
+    color: #ffffff;
+    border-color: #087ec2;
+    background: #087ec2;
+}

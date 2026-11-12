@@ -1,0 +1,39 @@
+/* =========================================================
+   1. CABEÇALHO PADRÃO DAS PÁGINAS (Barrinha azul + Título)
+   ========================================================= */
+.cabecalho-pagina {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.cabecalho-pagina-linha {
+    flex-shrink: 0;
+    width: 4px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #19c6e7 0%, #087ec2 100%);
+}
+
+.cabecalho-pagina-rotulo {
+    margin: 0 0 4px;
+    color: #087ec2;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.cabecalho-pagina h1 {
+    margin: 0 0 4px;
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.cabecalho-pagina-descricao {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}

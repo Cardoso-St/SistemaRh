@@ -1,13 +1,18 @@
 import "../../styles/ui/SeloStatus.css";
 
 const SeloStatus = ({ status }) => {
-  const textoStatus = status === "Desligado" ? "Inativo" : status;
-  const classeCor = textoStatus.toLowerCase(); // "ativo", "afastado" ou "inativo"
+  const mapaClasses = {
+    Ativo: "status-ativo",
+    Afastado: "status-afastado",
+    Desligado: "status-desligado",
+  };
+
+  const classeStatus = mapaClasses[status] || "status-desligado";
 
   return (
-    <span className={`selo-status selo-status-${classeCor}`}>
-      <span className="selo-status-bolinha" aria-hidden="true" />
-      {textoStatus}
+    <span className={`selo-status-ui ${classeStatus}`}>
+      <span className="ponto-status-ui" aria-hidden="true" />
+      {status}
     </span>
   );
 };

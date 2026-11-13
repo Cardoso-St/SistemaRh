@@ -1,0 +1,199 @@
+/* =========================================================
+   4. FILTRO MULTI-SELECT COM BUSCA
+   ========================================================= */
+.multiselect-ui {
+    position: relative;
+    min-width: 0;
+}
+
+.gatilho-multiselect-ui {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #dce4ef;
+    border-radius: 10px;
+    color: #334155;
+    background: #ffffff;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.multiselect-ui.aberto .gatilho-multiselect-ui {
+    border-color: #087ec2;
+    box-shadow: 0 0 0 3px rgba(8, 126, 194, 0.1);
+}
+
+.gatilho-multiselect-ui.com-filtro {
+    border-color: #bae6fd;
+    background: #f0f9ff;
+    color: #06265c;
+    font-weight: 600;
+}
+
+.gatilho-multiselect-ui:disabled {
+    color: #94a3b8;
+    background: #f8fafc;
+    cursor: not-allowed;
+}
+
+.texto-gatilho-multiselect {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.acoes-gatilho-multiselect {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.limpar-multiselect-ui {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    color: #087ec2;
+    transition: background 0.15s, color 0.15s;
+}
+
+.limpar-multiselect-ui:hover {
+    color: #ffffff;
+    background: #087ec2;
+}
+
+.limpar-multiselect-ui svg {
+    width: 13px;
+    height: 13px;
+}
+
+.seta-multiselect-ui {
+    width: 15px;
+    height: 15px;
+    color: #64748b;
+    transition: transform 0.2s ease;
+}
+
+.multiselect-ui.aberto .seta-multiselect-ui {
+    transform: rotate(180deg);
+    color: #087ec2;
+}
+
+.menu-multiselect-ui {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 40;
+    width: 100%;
+    min-width: 220px;
+    padding: 6px;
+    border: 1px solid #dce4ef;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 14px 32px rgba(6, 38, 92, 0.14);
+}
+
+.busca-multiselect-ui {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.busca-multiselect-ui svg {
+    width: 15px;
+    height: 15px;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.busca-multiselect-ui input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    color: #0f172a;
+    background: transparent;
+    font-size: 12.5px;
+}
+
+.lista-opcoes-multiselect-ui {
+    max-height: 210px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+}
+
+.opcao-multiselect-ui {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    color: #334155;
+    background: transparent;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.opcao-multiselect-ui:hover {
+    background: #f1f5f9;
+}
+
+.opcao-multiselect-ui.marcado {
+    color: #06265c;
+    background: #f0f9ff;
+    font-weight: 600;
+}
+
+.caixa-check-multiselect {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 5px;
+    background: #ffffff;
+    transition: all 0.15s;
+}
+
+.opcao-multiselect-ui.marcado .caixa-check-multiselect {
+    border-color: #087ec2;
+    color: #ffffff;
+    background: #087ec2;
+}
+
+.caixa-check-multiselect svg {
+    width: 12px;
+    height: 12px;
+}
+
+.nome-opcao-multiselect {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vazio-multiselect-ui {
+    padding: 12px;
+    color: #94a3b8;
+    text-align: center;
+    font-size: 12.5px;
+}

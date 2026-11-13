@@ -11,6 +11,7 @@ import {
     HiOutlineXMark,
 } from "react-icons/hi2";
 import CabecalhoPagina from "../../components/ui/CabecalhoPagina.jsx";
+import FiltroMultiSelect from "../../components/ui/FiltroMultiSelect.jsx";
 import Paginacao from "../../components/ui/Paginacao.jsx";
 import SeloStatus from "../../components/ui/SeloStatus.jsx";
 import "../../styles/pages/Colaboradores/ColaboradoresLista.css";
@@ -35,6 +36,8 @@ const tiposVinculo = [
     "Prestador de serviços",
     "Colaborador associado",
 ];
+
+const statusOpcoes = ["Ativo", "Afastado", "Desligado"];
 
 const colaboradoresExemplo = [
     {
@@ -143,7 +146,7 @@ const colaboradoresExemplo = [
         municipio: "CANAPI",
         secretaria: "Saúde",
         departamento: "Enfermagem",
-        status: "Inativo",
+        status: "Desligado",
     },
     {
         id: 10,
@@ -186,10 +189,11 @@ const colaboradoresExemplo = [
 const ColaboradoresLista = () => {
     const [colaboradores, setColaboradores] = useState(colaboradoresExemplo);
     const [termoBusca, setTermoBusca] = useState("");
-    const [vinculoSelecionado, setVinculoSelecionado] = useState("");
-    const [municipioSelecionado, setMunicipioSelecionado] = useState("");
-    const [secretariaSelecionada, setSecretariaSelecionada] = useState("");
-    const [departamentoSelecionado, setDepartamentoSelecionado] = useState("");
+    const [vinculosSelecionados, setVinculosSelecionados] = useState([]);
+    const [municipiosSelecionados, setMunicipiosSelecionados] = useState([]);
+    const [secretariasSelecionadas, setSecretariasSelecionadas] = useState([]);
+    const [departamentosSelecionados, setDepartamentosSelecionados] = useState([]);
+    const [statusSelecionados, setStatusSelecionados] = useState([]);
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [colaboradorParaExcluir, setColaboradorParaExcluir] = useState(null);
 
@@ -200,8 +204,8 @@ const ColaboradoresLista = () => {
             colaboradores
                 .filter(
                     (colaborador) =>
-                        !municipioSelecionado ||
-                        colaborador.municipio === municipioSelecionado
+                        municipiosSelecionados.length === 0 ||
+                        municipiosSelecionados.includes(colaborador.municipio)
                 )
                 .map((colaborador) => colaborador.secretaria)
         ),
@@ -212,14 +216,68 @@ const ColaboradoresLista = () => {
             colaboradores
                 .filter(
                     (colaborador) =>
-                        (!municipioSelecionado ||
-                            colaborador.municipio === municipioSelecionado) &&
-                        (!secretariaSelecionada ||
-                            colaborador.secretaria === secretariaSelecionada)
+                        (municipiosSelecionados.length === 0 ||
+                            municipiosSelecionados.includes(colaborador.municipio)) &&
+                        (secretariasSelecionadas.length === 0 ||
+                            secretariasSelecionadas.includes(colaborador.secretaria))
                 )
                 .map((colaborador) => colaborador.departamento)
         ),
     ];
+
+    const handleMudarMunicipios = (novosMunicipios) => {
+        setMunicipiosSelecionados(novosMunicipios);
+        setPaginaAtual(1);
+
+        if (novosMunicipios.length === 0) {
+            setSecretariasSelecionadas([]);
+            setDepartamentosSelecionados([]);
+            return;
+        }
+
+        const secretariasValidas = [
+            ...new Set(
+                colaboradores
+                    .filter((c) => novosMunicipios.includes(c.municipio))
+                    .map((c) => c.secretaria)
+            ),
+        ];
+
+        const secretariasMantidas = secretariasSelecionadas.filter((s) =>
+            secretariasValidas.includes(s)
+        );
+        setSecretariasSelecionadas(secretariasMantidas);
+
+        if (secretariasMantidas.length === 0) {
+            setDepartamentosSelecionados([]);
+        }
+    };
+
+    const handleMudarSecretarias = (novasSecretarias) => {
+        setSecretariasSelecionadas(novasSecretarias);
+        setPaginaAtual(1);
+
+        if (novasSecretarias.length === 0) {
+            setDepartamentosSelecionados([]);
+            return;
+        }
+
+        const departamentosValidos = [
+            ...new Set(
+                colaboradores
+                    .filter(
+                        (c) =>
+                            municipiosSelecionados.includes(c.municipio) &&
+                            novasSecretarias.includes(c.secretaria)
+                    )
+                    .map((c) => c.departamento)
+            ),
+        ];
+
+        setDepartamentosSelecionados((prev) =>
+            prev.filter((d) => departamentosValidos.includes(d))
+        );
+    };
 
     const colaboradoresFiltrados = colaboradores.filter((colaborador) => {
         const termoNormalizado = normalizarTexto(termoBusca.trim());
@@ -231,26 +289,32 @@ const ColaboradoresLista = () => {
             normalizarTexto(colaborador.matricula).includes(termoNormalizado);
 
         const correspondeVinculo =
-            !vinculoSelecionado || colaborador.vinculo === vinculoSelecionado;
+            vinculosSelecionados.length === 0 ||
+            vinculosSelecionados.includes(colaborador.vinculo);
 
         const correspondeMunicipio =
-            !municipioSelecionado ||
-            colaborador.municipio === municipioSelecionado;
+            municipiosSelecionados.length === 0 ||
+            municipiosSelecionados.includes(colaborador.municipio);
 
         const correspondeSecretaria =
-            !secretariaSelecionada ||
-            colaborador.secretaria === secretariaSelecionada;
+            secretariasSelecionadas.length === 0 ||
+            secretariasSelecionadas.includes(colaborador.secretaria);
 
         const correspondeDepartamento =
-            !departamentoSelecionado ||
-            colaborador.departamento === departamentoSelecionado;
+            departamentosSelecionados.length === 0 ||
+            departamentosSelecionados.includes(colaborador.departamento);
+
+        const correspondeStatus =
+            statusSelecionados.length === 0 ||
+            statusSelecionados.includes(colaborador.status);
 
         return (
             correspondeBusca &&
             correspondeVinculo &&
             correspondeMunicipio &&
             correspondeSecretaria &&
-            correspondeDepartamento
+            correspondeDepartamento &&
+            correspondeStatus
         );
     });
 
@@ -263,11 +327,11 @@ const ColaboradoresLista = () => {
     );
 
     const confirmarExclusao = (tipo) => {
-        if (tipo === "inativar") {
+        if (tipo === "desligar") {
             setColaboradores((listaAtual) =>
                 listaAtual.map((colaborador) =>
                     colaborador.id === colaboradorParaExcluir.id
-                        ? { ...colaborador, status: "Inativo" }
+                        ? { ...colaborador, status: "Desligado" }
                         : colaborador
                 )
             );
@@ -338,78 +402,51 @@ const ColaboradoresLista = () => {
                         />
                     </label>
 
-                    <select
-                        aria-label="Filtrar por tipo de vínculo"
-                        value={vinculoSelecionado}
-                        onChange={(event) => {
-                            setVinculoSelecionado(event.target.value);
+                    <FiltroMultiSelect
+                        rotulo="Vínculos"
+                        opcoes={tiposVinculo}
+                        selecionados={vinculosSelecionados}
+                        aoAlterar={(valores) => {
+                            setVinculosSelecionados(valores);
                             setPaginaAtual(1);
                         }}
-                    >
-                        <option value="">Todos os vínculos</option>
+                    />
 
-                        {tiposVinculo.map((vinculo) => (
-                            <option key={vinculo} value={vinculo}>
-                                {vinculo}
-                            </option>
-                        ))}
-                    </select>
+                    <FiltroMultiSelect
+                        rotulo="Municípios"
+                        opcoes={municipiosBase}
+                        selecionados={municipiosSelecionados}
+                        aoAlterar={handleMudarMunicipios}
+                    />
 
-                    <select
-                        aria-label="Filtrar por município"
-                        value={municipioSelecionado}
-                        onChange={(event) => {
-                            setMunicipioSelecionado(event.target.value);
-                            setSecretariaSelecionada("");
-                            setDepartamentoSelecionado("");
+                    <FiltroMultiSelect
+                        rotulo="Secretarias"
+                        opcoes={secretariasDisponiveis}
+                        selecionados={secretariasSelecionadas}
+                        desabilitado={municipiosSelecionados.length === 0}
+                        aoAlterar={handleMudarSecretarias}
+                    />
+
+                    <FiltroMultiSelect
+                        rotulo="Departamentos"
+                        opcoes={departamentosDisponiveis}
+                        selecionados={departamentosSelecionados}
+                        desabilitado={secretariasSelecionadas.length === 0}
+                        aoAlterar={(valores) => {
+                            setDepartamentosSelecionados(valores);
                             setPaginaAtual(1);
                         }}
-                    >
-                        <option value="">Todos os municípios</option>
+                    />
 
-                        {municipiosBase.map((municipio) => (
-                            <option key={municipio} value={municipio}>
-                                {municipio}
-                            </option>
-                        ))}
-                    </select>
-
-                    <select
-                        aria-label="Filtrar por secretaria"
-                        value={secretariaSelecionada}
-                        disabled={!municipioSelecionado}
-                        onChange={(event) => {
-                            setSecretariaSelecionada(event.target.value);
-                            setDepartamentoSelecionado("");
+                    <FiltroMultiSelect
+                        rotulo="Status"
+                        opcoes={statusOpcoes}
+                        selecionados={statusSelecionados}
+                        aoAlterar={(valores) => {
+                            setStatusSelecionados(valores);
                             setPaginaAtual(1);
                         }}
-                    >
-                        <option value="">Todas as secretarias</option>
-
-                        {secretariasDisponiveis.map((secretaria) => (
-                            <option key={secretaria} value={secretaria}>
-                                {secretaria}
-                            </option>
-                        ))}
-                    </select>
-
-                    <select
-                        aria-label="Filtrar por departamento"
-                        value={departamentoSelecionado}
-                        disabled={!secretariaSelecionada}
-                        onChange={(event) => {
-                            setDepartamentoSelecionado(event.target.value);
-                            setPaginaAtual(1);
-                        }}
-                    >
-                        <option value="">Todos os departamentos</option>
-
-                        {departamentosDisponiveis.map((departamento) => (
-                            <option key={departamento} value={departamento}>
-                                {departamento}
-                            </option>
-                        ))}
-                    </select>
+                    />
                 </div>
 
                 <div className="area-tabela-lista">
@@ -426,82 +463,91 @@ const ColaboradoresLista = () => {
                         </thead>
 
                         <tbody>
-                            {colaboradoresPaginados.map((colaborador) => (
-                                <tr key={colaborador.id}>
-                                    <td>
-                                        <div className="identificacao-lista-colaborador">
-                                            <span className="avatar-lista-colaborador">
-                                                {colaborador.nome
-                                                    .split(" ")
-                                                    .slice(0, 2)
-                                                    .map((nome) => nome[0])
-                                                    .join("")}
-                                            </span>
+                            {colaboradoresPaginados.map((colaborador) => {
+                                const estaDesligado = colaborador.status === "Desligado";
 
-                                            <div>
-                                                <strong>{colaborador.nome}</strong>
-                                                <small>
-                                                    {colaborador.matricula} · CPF: {colaborador.cpf}
-                                                </small>
+                                return (
+                                    <tr
+                                        key={colaborador.id}
+                                        className={
+                                            estaDesligado ? "linha-colaborador-desligado" : ""
+                                        }
+                                    >
+                                        <td>
+                                            <div className="identificacao-lista-colaborador">
+                                                <span className="avatar-lista-colaborador">
+                                                    {colaborador.nome
+                                                        .split(" ")
+                                                        .slice(0, 2)
+                                                        .map((nome) => nome[0])
+                                                        .join("")}
+                                                </span>
+
+                                                <div>
+                                                    <strong>{colaborador.nome}</strong>
+                                                    <small>
+                                                        {colaborador.matricula} · CPF: {colaborador.cpf}
+                                                    </small>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
 
-                                    <td>{colaborador.cargo}</td>
+                                        <td>{colaborador.cargo}</td>
 
-                                    <td>
-                                        <span className="badge-vinculo-colaborador">
-                                            {colaborador.vinculo}
-                                        </span>
-                                    </td>
+                                        <td>
+                                            <span className="badge-vinculo-colaborador">
+                                                {colaborador.vinculo}
+                                            </span>
+                                        </td>
 
-                                    <td>
-                                        <strong className="municipio-colaborador">
-                                            {colaborador.municipio}
-                                        </strong>
+                                        <td>
+                                            <strong className="municipio-colaborador">
+                                                {colaborador.municipio}
+                                            </strong>
 
-                                        <small className="departamento-colaborador">
-                                            {colaborador.secretaria} · {colaborador.departamento}
-                                        </small>
-                                    </td>
+                                            <small className="departamento-colaborador">
+                                                {colaborador.secretaria} · {colaborador.departamento}
+                                            </small>
+                                        </td>
 
-                                    <td>
-                                        <SeloStatus status={colaborador.status} />
-                                    </td>
+                                        <td>
+                                            <SeloStatus status={colaborador.status} />
+                                        </td>
 
-                                    <td>
-                                        <div className="acoes-lista-colaborador">
-                                            <button
-                                                className="botao-acao-tabela botao-ver-perfil"
-                                                type="button"
-                                                aria-label={`Ver perfil de ${colaborador.nome}`}
-                                                title="Ver perfil"
-                                            >
-                                                <HiOutlineEye aria-hidden="true" />
-                                            </button>
+                                        <td>
+                                            <div className="acoes-lista-colaborador">
+                                                <button
+                                                    className="botao-acao-tabela botao-ver-perfil"
+                                                    type="button"
+                                                    aria-label={`Ver perfil de ${colaborador.nome}`}
+                                                    title="Ver perfil"
+                                                >
+                                                    <HiOutlineEye aria-hidden="true" />
+                                                </button>
 
-                                            <button
-                                                className="botao-acao-tabela botao-editar-colaborador"
-                                                type="button"
-                                                aria-label={`Editar ${colaborador.nome}`}
-                                                title="Editar cadastro"
-                                            >
-                                                <HiOutlinePencilSquare aria-hidden="true" />
-                                            </button>
+                                                <button
+                                                    className="botao-acao-tabela botao-editar-colaborador"
+                                                    type="button"
+                                                    aria-label={`Editar ${colaborador.nome}`}
+                                                    title="Editar cadastro"
+                                                >
+                                                    <HiOutlinePencilSquare aria-hidden="true" />
+                                                </button>
 
-                                            <button
-                                                className="botao-acao-tabela botao-excluir-colaborador"
-                                                type="button"
-                                                aria-label={`Excluir ou inativar ${colaborador.nome}`}
-                                                title="Excluir / Inativar"
-                                                onClick={() => setColaboradorParaExcluir(colaborador)}
-                                            >
-                                                <HiOutlineTrash aria-hidden="true" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                                                <button
+                                                    className="botao-acao-tabela botao-excluir-colaborador"
+                                                    type="button"
+                                                    aria-label={`Desligar ou excluir ${colaborador.nome}`}
+                                                    title="Desligar / Excluir"
+                                                    onClick={() => setColaboradorParaExcluir(colaborador)}
+                                                >
+                                                    <HiOutlineTrash aria-hidden="true" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
 
@@ -571,11 +617,11 @@ const ColaboradoresLista = () => {
                         </div>
 
                         <div className="opcoes-modal-exclusao">
-                            {colaboradorParaExcluir.status !== "Inativo" && (
+                            {colaboradorParaExcluir.status !== "Desligado" && (
                                 <button
                                     type="button"
                                     className="cartao-opcao-modal opcao-inativar"
-                                    onClick={() => confirmarExclusao("inativar")}
+                                    onClick={() => confirmarExclusao("desligar")}
                                 >
                                     <span className="icone-opcao-modal">
                                         <HiOutlineArchiveBox aria-hidden="true" />
@@ -583,7 +629,7 @@ const ColaboradoresLista = () => {
 
                                     <div className="texto-opcao-modal">
                                         <div className="titulo-opcao-linha">
-                                            <strong>Inativar colaborador</strong>
+                                            <strong>Desligar colaborador</strong>
                                             <span className="selo-recomendado-modal">Recomendado</span>
                                         </div>
                                         <small>

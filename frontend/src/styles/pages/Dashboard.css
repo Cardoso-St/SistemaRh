@@ -208,6 +208,18 @@
     background: #f8fafc;
 }
 
+.tabela-colaboradores tbody tr.linha-colaborador-desligado td {
+    background: #fafbfc;
+}
+
+.tabela-colaboradores tbody tr.linha-colaborador-desligado td:not(:last-child) {
+    opacity: 0.55;
+}
+
+.tabela-colaboradores tbody tr.linha-colaborador-desligado .foto-colaborador {
+    filter: grayscale(100%);
+}
+
 .identificacao-colaborador {
     display: flex;
     align-items: center;

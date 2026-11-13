@@ -89,13 +89,14 @@
 /* --- Barra de Busca e Filtros Hierárquicos --- */
 .filtros-colaboradores {
     display: grid;
-    grid-template-columns: 1.6fr repeat(4, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 12px;
     padding: 0 24px 20px;
     border-bottom: 1px solid #eef2f6;
 }
 
 .campo-busca-lista {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -188,6 +189,19 @@
 
 .tabela-lista-colaboradores tbody tr:hover {
     background: #f8fbfe;
+}
+
+.tabela-lista-colaboradores tbody tr.linha-colaborador-desligado {
+    background: #fafbfc;
+}
+
+.tabela-lista-colaboradores tbody tr.linha-colaborador-desligado td:not(:last-child) {
+    opacity: 0.55;
+}
+
+.tabela-lista-colaboradores tbody tr.linha-colaborador-desligado .avatar-lista-colaborador {
+    color: #64748b;
+    background: #e2e8f0;
 }
 
 .identificacao-lista-colaborador {

@@ -72,7 +72,7 @@ const colaboradoresExemplo = [
         cargo: "Torcedor do Corinthians",
         vinculo: "Prestador de serviços",
         municipio: "NUpal",
-        status: "Inativo",
+        status: "Desligado",
         contratoVencer: false,
         pendenciaDocumental: true,
         fotoUrl: null,
@@ -122,7 +122,7 @@ const colaboradoresExemplo = [
         cargo: "Desenvolvedor",
         vinculo: "CLT",
         municipio: "Arapiraca",
-        status: "Inativo",
+        status: "Desligado",
         contratoVencer: false,
         pendenciaDocumental: true,
         fotoUrl:
@@ -211,7 +211,6 @@ const Dashboard = () => {
                 descricao="Acompanhe os principais indicadores e localize colaboradores rapidamente."
             />
 
-            {/* Cards Indicadores Clicáveis */}
             <section className="lista-cartoes-indicadores">
                 {indicadoresRh.map(
                     ({ id, titulo, valor, descricao, icone: Icone, categoria }) => {
@@ -241,7 +240,6 @@ const Dashboard = () => {
                 )}
             </section>
 
-            {/* Seção da Tabela */}
             <section className="secao-colaboradores">
                 <header className="cabecalho-lista-colaboradores">
                     <div className="topo-lista-colaboradores">
@@ -280,52 +278,61 @@ const Dashboard = () => {
                         </thead>
 
                         <tbody>
-                            {colaboradoresPaginados.map((colaborador) => (
-                                <tr key={colaborador.id}>
-                                    <td>
-                                        <div className="identificacao-colaborador">
-                                            <div className="avatar-wrapper">
-                                                {colaborador.fotoUrl ? (
-                                                    <img
-                                                        src={colaborador.fotoUrl}
-                                                        alt={colaborador.nome}
-                                                        className="foto-colaborador"
-                                                    />
-                                                ) : (
-                                                    <span className="avatar-colaborador">
-                                                        {colaborador.nome
-                                                            .split(" ")
-                                                            .slice(0, 2)
-                                                            .map((nome) => nome[0])
-                                                            .join("")}
-                                                    </span>
-                                                )}
+                            {colaboradoresPaginados.map((colaborador) => {
+                                const estaDesligado = colaborador.status === "Desligado";
+
+                                return (
+                                    <tr
+                                        key={colaborador.id}
+                                        className={
+                                            estaDesligado ? "linha-colaborador-desligado" : ""
+                                        }
+                                    >
+                                        <td>
+                                            <div className="identificacao-colaborador">
+                                                <div className="avatar-wrapper">
+                                                    {colaborador.fotoUrl ? (
+                                                        <img
+                                                            src={colaborador.fotoUrl}
+                                                            alt={colaborador.nome}
+                                                            className="foto-colaborador"
+                                                        />
+                                                    ) : (
+                                                        <span className="avatar-colaborador">
+                                                            {colaborador.nome
+                                                                .split(" ")
+                                                                .slice(0, 2)
+                                                                .map((nome) => nome[0])
+                                                                .join("")}
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <div>
+                                                    <strong>{colaborador.nome}</strong>
+                                                    <small>Matrícula: {colaborador.matricula}</small>
+                                                </div>
                                             </div>
+                                        </td>
 
-                                            <div>
-                                                <strong>{colaborador.nome}</strong>
-                                                <small>Matrícula: {colaborador.matricula}</small>
-                                            </div>
-                                        </div>
-                                    </td>
+                                        <td>{colaborador.cargo}</td>
+                                        <td>
+                                            <span className="badge-vinculo">{colaborador.vinculo}</span>
+                                        </td>
+                                        <td>{colaborador.municipio}</td>
 
-                                    <td>{colaborador.cargo}</td>
-                                    <td>
-                                        <span className="badge-vinculo">{colaborador.vinculo}</span>
-                                    </td>
-                                    <td>{colaborador.municipio}</td>
+                                        <td>
+                                            <SeloStatus status={colaborador.status} />
+                                        </td>
 
-                                    <td>
-                                        <SeloStatus status={colaborador.status} />
-                                    </td>
-
-                                    <td>
-                                        <button className="botao-ver-perfil-dashboard" type="button">
-                                            Ver perfil
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                                        <td>
+                                            <button className="botao-ver-perfil-dashboard" type="button">
+                                                Ver perfil
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
 
